@@ -5,9 +5,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-slides>
+  <ion-slides #slides>
     <ion-slide>
       <app-page-one></app-page-one>
     </ion-slide>
+    <ion-slide>
+      <app-page-two></app-page-two>
+    </ion-slide>
+    <ion-slide>
+      <app-page-three></app-page-three>
+    </ion-slide>
   </ion-slides>
+  <ion-button (click)="swipeNext()" expand="block">次のスライド</ion-button>
+  <ion-button (click)="swipePrev()" expand="block">前のスライド</ion-button>
 </ion-content>
