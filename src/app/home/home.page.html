@@ -8,34 +8,34 @@
   <!-- スライドが10枚ある -->
   <ion-slides #slides>
     <ion-slide>
-      <app-page-one></app-page-one>
+      <app-page-one *ngIf="isVisibleSlide[0]"></app-page-one>
     </ion-slide>
     <ion-slide>
-      <app-page-two></app-page-two>
+      <app-page-two *ngIf="isVisibleSlide[1]"></app-page-two>
     </ion-slide>
     <ion-slide>
-      <app-page-three></app-page-three>
+      <app-page-three *ngIf="isVisibleSlide[2]"></app-page-three>
     </ion-slide>
     <ion-slide>
-      <app-page-four></app-page-four>
+      <app-page-four *ngIf="isVisibleSlide[3]"></app-page-four>
     </ion-slide>
     <ion-slide>
-      <app-page-five></app-page-five>
+      <app-page-five *ngIf="isVisibleSlide[4]"></app-page-five>
     </ion-slide>
     <ion-slide>
-      <app-page-six></app-page-six>
+      <app-page-six *ngIf="isVisibleSlide[5]"></app-page-six>
     </ion-slide>
     <ion-slide>
-      <app-page-seven></app-page-seven>
+      <app-page-seven *ngIf="isVisibleSlide[6]"></app-page-seven>
     </ion-slide>
     <ion-slide>
-      <app-page-eight></app-page-eight>
+      <app-page-eight *ngIf="isVisibleSlide[7]"></app-page-eight>
     </ion-slide>
     <ion-slide>
-      <app-page-nine></app-page-nine>
+      <app-page-nine *ngIf="isVisibleSlide[8]"></app-page-nine>
     </ion-slide>
     <ion-slide>
-      <app-page-ten></app-page-ten>
+      <app-page-ten *ngIf="isVisibleSlide[9]"></app-page-ten>
     </ion-slide>
   </ion-slides>
   <ion-button (click)="swipeNext()" expand="block">次のスライド</ion-button>
