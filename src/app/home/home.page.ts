@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 
 /**
@@ -12,10 +12,18 @@ import { IonSlides } from '@ionic/angular';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   @ViewChild('slides') slides: IonSlides;
+  // スライドの表示フラグ
+  public isVisibleSlide: boolean[];
+  // スライドの枚数
+  private readonly numberOfSlides = 10;
 
   constructor() {}
+
+  public ngOnInit(): void {
+    this.isVisibleSlide = Array(this.numberOfSlides).fill(false);
+  }
 
   /**
    * 次のスライドに進む
