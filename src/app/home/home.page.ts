@@ -22,8 +22,9 @@ export class HomePage implements OnInit {
   constructor() {}
 
   public async ngOnInit(): Promise<void> {
+    // 全てのスライドを非表示にする
     this.isVisibleSlide = Array(this.numberOfSlides).fill(false);
-    this.initShowSlides(0);
+    this.initShowSlides();
   }
 
   /**
@@ -44,19 +45,44 @@ export class HomePage implements OnInit {
     this.slides.slidePrev();
   }
 
+  /**
+   * スライドを進んだ時に呼び出される
+   *
+   * @returns {Promise<void>}
+   * @memberof HomePage
+   */
   public async loadNext(): Promise<void> {
     await this.showNextSlide();
   }
 
+  /**
+   * スライドを戻った時に呼び出される
+   *
+   * @returns {Promise<void>}
+   * @memberof HomePage
+   */
   public async loadPrev(): Promise<void> {
     await this.showPrevSlide();
   }
 
-  private initShowSlides(index: number): void {
-    this.isVisibleSlide[index] = true;
-    this.isVisibleSlide[index + 1] = true;
+  /**
+   * 初期処理として1番目と2番目のスライドを表示する
+   *
+   * @private
+   * @memberof HomePage
+   */
+  private initShowSlides(): void {
+    this.isVisibleSlide[0] = true;
+    this.isVisibleSlide[1] = true;
   }
 
+  /**
+   * 前方向のスライド移動に伴い、スライドの表示・非表示を切り替える。
+   *
+   * @private
+   * @returns {Promise<void>}
+   * @memberof HomePage
+   */
   private async showNextSlide(): Promise<void> {
     const index = await this.slides.getActiveIndex();
     if (index > 1) {
@@ -67,13 +93,20 @@ export class HomePage implements OnInit {
     }
   }
 
+  /**
+   * 後ろ方向のスライド移動に伴い、スライドの表示・非表示を切り替える。
+   *
+   * @private
+   * @returns {Promise<void>}
+   * @memberof HomePage
+   */
   private async showPrevSlide(): Promise<void> {
     const index = await this.slides.getActiveIndex();
     if (index > 0) {
       this.isVisibleSlide[index - 1] = true;
     }
-    if (index < this.numberOfSlides - 1) {
-      this.isVisibleSlide[index + 1] = false;
+    if (index < this.numberOfSlides - 2) {
+      this.isVisibleSlide[index + 2] = false;
     }
   }
 }

@@ -8,8 +8,8 @@
   <!-- スライドが10枚ある -->
   <ion-slides
     #slides
-    (ionSlideNextStart)="loadNext()"
-    (ionSlidePrevStart)="loadPrev()"
+    (ionSlideNextEnd)="loadNext()"
+    (ionSlidePrevEnd)="loadPrev()"
   >
     <ion-slide>
       <app-page-one *ngIf="isVisibleSlide[0]"></app-page-one>
