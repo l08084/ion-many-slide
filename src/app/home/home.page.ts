@@ -21,8 +21,9 @@ export class HomePage implements OnInit {
 
   constructor() {}
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.isVisibleSlide = Array(this.numberOfSlides).fill(false);
+    this.initShowSlides(0);
   }
 
   /**
@@ -41,5 +42,38 @@ export class HomePage implements OnInit {
    */
   public swipePrev(): void {
     this.slides.slidePrev();
+  }
+
+  public async loadNext(): Promise<void> {
+    await this.showNextSlide();
+  }
+
+  public async loadPrev(): Promise<void> {
+    await this.showPrevSlide();
+  }
+
+  private initShowSlides(index: number): void {
+    this.isVisibleSlide[index] = true;
+    this.isVisibleSlide[index + 1] = true;
+  }
+
+  private async showNextSlide(): Promise<void> {
+    const index = await this.slides.getActiveIndex();
+    if (index > 1) {
+      this.isVisibleSlide[index - 2] = false;
+    }
+    if (index < this.numberOfSlides - 1) {
+      this.isVisibleSlide[index + 1] = true;
+    }
+  }
+
+  private async showPrevSlide(): Promise<void> {
+    const index = await this.slides.getActiveIndex();
+    if (index > 0) {
+      this.isVisibleSlide[index - 1] = true;
+    }
+    if (index < this.numberOfSlides - 1) {
+      this.isVisibleSlide[index + 1] = false;
+    }
   }
 }
