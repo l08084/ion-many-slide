@@ -18,13 +18,18 @@ export class HomePage implements OnInit {
   public isVisibleSlide: boolean[];
   // スライドの枚数
   private readonly numberOfSlides = 10;
+  private visibleSlidesCallbackInterbal: any;
 
   constructor() {}
 
   public async ngOnInit(): Promise<void> {
     // 全てのスライドを非表示にする
     this.isVisibleSlide = Array(this.numberOfSlides).fill(false);
-    this.initShowSlides();
+    this.lazyLodingSlides();
+  }
+
+  public ngOnDestroy(): void {
+    clearInterval(this.visibleSlidesCallbackInterbal);
   }
 
   /**
@@ -45,68 +50,10 @@ export class HomePage implements OnInit {
     this.slides.slidePrev();
   }
 
-  /**
-   * スライドを進んだ時に呼び出される
-   *
-   * @returns {Promise<void>}
-   * @memberof HomePage
-   */
-  public async loadNext(): Promise<void> {
-    await this.showNextSlide();
-  }
-
-  /**
-   * スライドを戻った時に呼び出される
-   *
-   * @returns {Promise<void>}
-   * @memberof HomePage
-   */
-  public async loadPrev(): Promise<void> {
-    await this.showPrevSlide();
-  }
-
-  /**
-   * 初期処理として1番目と2番目のスライドを表示する
-   *
-   * @private
-   * @memberof HomePage
-   */
-  private initShowSlides(): void {
+  private lazyLodingSlides(): void {
     this.isVisibleSlide[0] = true;
     this.isVisibleSlide[1] = true;
-  }
-
-  /**
-   * 前方向のスライド移動に伴い、スライドの表示・非表示を切り替える。
-   *
-   * @private
-   * @returns {Promise<void>}
-   * @memberof HomePage
-   */
-  private async showNextSlide(): Promise<void> {
-    const index = await this.slides.getActiveIndex();
-    if (index > 1) {
-      this.isVisibleSlide[index - 2] = false;
-    }
-    if (index < this.numberOfSlides - 1) {
-      this.isVisibleSlide[index + 1] = true;
-    }
-  }
-
-  /**
-   * 後ろ方向のスライド移動に伴い、スライドの表示・非表示を切り替える。
-   *
-   * @private
-   * @returns {Promise<void>}
-   * @memberof HomePage
-   */
-  private async showPrevSlide(): Promise<void> {
-    const index = await this.slides.getActiveIndex();
-    if (index > 0) {
-      this.isVisibleSlide[index - 1] = true;
-    }
-    if (index < this.numberOfSlides - 2) {
-      this.isVisibleSlide[index + 2] = false;
-    }
+    let counter = 2;
+    this.visibleSlidesCallbackInterbal = setInterval(() => {});
   }
 }
